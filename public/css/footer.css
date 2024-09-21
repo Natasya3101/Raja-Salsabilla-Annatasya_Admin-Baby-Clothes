@@ -1,0 +1,58 @@
+footer{
+    position: relative;
+    padding: 2% 0%;
+    width: 100%;
+    background-color: rgba(240, 151, 88, 0.959);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    place-items: center;
+    overflow: hidden;
+}
+
+.sosmed{
+    font-size: 28px;
+}
+.sosmed a .bx:hover{
+    transform: scale(1.5);
+}
+.sosmed a .bxl-instagram{
+    color: white;
+    background: -webkit-linear-gradient(#405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sosmed a .bxl-twitter{
+    background: -webkit-linear-gradient(#66c0f4, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sosmed a .bxl-github{
+    background: -webkit-linear-gradient(#0cacf4, #1d202d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sosmed a .bxl-gmail{
+    color: #DB4437;
+    -webkit-text-stroke: 0.5px white;
+}
+.sosmed a .bxl-whatsapp{
+    color: #00ff88;
+    -webkit-text-stroke: 0.5px white;
+}
+
+
+.copyright{
+    display: flex;
+    position: relative;
+    width: 321.96px;
+    height: 25px;
+    text-align: center;
+}
+.copyright h1{
+    font-size: 13px;
+    font-weight: bolder;
+    text-align: center;
+    position: absolute;
+    overflow: hidden;
+}

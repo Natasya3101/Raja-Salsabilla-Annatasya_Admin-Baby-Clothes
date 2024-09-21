@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODUCTS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+
+<body>
+
+    <header>
+        <i class='bx bx-menu menu' id="menu-bar"></i>
+        <div>
+            <a href="http://localhost:3000/home/">
+                <img src="../assets/logo1.png" class="logo" alt="">
+            </a>
+        </div>
+        <ul class="navlist">
+            <li><a href="http://localhost:3000/all/" class="active-bar">Products</a></li>
+            <li><a href="http://localhost:3000/pakaian/">Add Product</a></li>
+            <li><a onclick="logout()">Log out</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <div class="card-body" id="card-body">
+            <h1 class="all">All Products</h1>
+            <hr>
+            <div class="card">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            window.location.href = "/login";
+        }
+        const cardBody = document.getElementById("card-body")
+        fetch("/api/data")
+            .then((res) => res.json()).then((data) => {
+                for (let index = 0; index < data.length; index++) {
+                    // card
+                    const card = document.createElement("div")
+                    card.classList.add("card")
+                    // image
+                    const img = document.createElement("img")
+                    img.classList.add("product-image")
+                    img.src = `/photos/${data[index].foto}`
+
+                    // detail
+                    const detail = document.createElement("div")
+                    const nama = document.createElement("h2")
+                    nama.textContent = data[index].nama_pakaian
+                    const deskripsi = document.createElement("h3")
+                    deskripsi.textContent = `Deskripsi : ${data[index].deskripsi_usia}`
+                    detail.appendChild(nama)
+                    detail.appendChild(deskripsi)
+
+                    // price
+                    const divPrice = document.createElement("div")
+                    divPrice.classList.add("price")
+                    const price = document.createElement("h3")
+                    price.textContent = `Harga : Rp. ${data[index].harga}`
+                    const stock = document.createElement("h3")
+                    stock.textContent = `Stok : ${data[index].stok}`
+                    divPrice.appendChild(price)
+                    divPrice.appendChild(stock)
+
+                    // action
+                    const action = document.createElement("div")
+                    action.classList.add("action")
+                    const a1 = document.createElement("a")
+                    const a2 = document.createElement("a")
+                    const trash = document.createElement("i")
+                    const edit = document.createElement("i")
+                    trash.className = "bx bxs-trash"
+                    edit.className = "bx bxs-edit"
+                    a1.classList.add("action-link")
+
+                    a2.classList.add("action-link")
+                    // pasang attribute src untuk lempar ke edit
+                    a2.setAttribute("href", `http://localhost:3000/edit?kode_pakaian=${data[index].kode_pakaian}`);
+                    a1.appendChild(trash)
+                    a2.appendChild(edit)
+                    action.appendChild(a1)
+                    action.appendChild(a2)
+
+                    const hr = document.createElement("hr")
+                    card.appendChild(img)
+                    card.appendChild(detail)
+                    card.appendChild(divPrice)
+                    card.appendChild(action)
+                    cardBody.appendChild(card)
+                    cardBody.append(hr)
+
+                    a1.onclick = async () => {
+                        const { kode_pakaian, nama_pakaian } = data[index];
+                        const confirmationMessage = `Apakah Anda yakin ingin menghapus ${nama_pakaian} (${kode_pakaian})?`;
+
+                        try {
+                            const userConfirmed = confirm(confirmationMessage);
+
+                            if (userConfirmed) {
+                                const response = await fetch(`/api/delete/${kode_pakaian}`, {
+                                    method: "DELETE",
+                                    headers: {
+                                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                                    },
+                                });
+
+                                if (response.ok) {
+                                    try {
+                                        location.reload();
+                                    } catch (error) {
+                                        console.error("Error reloading page:", error);
+                                        alert("Terjadi kesalahan saat memuat ulang halaman.");
+                                    }
+                                } else {
+                                    const errorMessage = await response.text();
+                                    console.error("Error deleting pakaian:", errorMessage);
+                                    alert(`Terjadi kesalahan saat menghapus pakaian: ${errorMessage}`);
+                                }
+                            }
+                        } catch (error) {
+                            console.error("Error deleting pakaian:", error);
+                            alert(error.message);
+                        }
+                    };
+
+
+
+
+
+
+
+                }
+            })
+
+        const menu = document.getElementById('menu-bar');
+        const nav = document.querySelector(".navlist");
+        menu.addEventListener("click", () => {
+            nav.classList.toggle('slide');
+            menu.classList.toggle('bx-x');
+        });
+    </script>
+</body>
+
+</html>

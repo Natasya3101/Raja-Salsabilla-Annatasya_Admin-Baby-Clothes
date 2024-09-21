@@ -1,0 +1,246 @@
+/* css cleaer float */
+.clear:before,
+.clear:after {
+    content: " ";
+    display: table;
+}
+
+.active-bar{
+    background-color: darkgoldenrod;    
+    color: black !important;
+    border: solid whitesmoke 1px;
+}
+
+.clear:after {
+    clear: both;
+}
+
+.clear {
+    zoom: 1;
+}
+
+* {
+    text-decoration: none;
+    list-style: none;
+    outline: none;
+}
+
+body {
+    margin: 0;
+    transition: all 0.5s;
+    font-family: cursive;
+}
+
+/* header */
+header {
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-areas: 'logo nav';
+    align-items: center;
+    background-color: rgba(240, 151, 88, 0.959);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header .logo {
+    width: 160px;
+    grid-area: 'logo';
+}
+
+.logo h1{
+    margin-left: 2%;
+}
+
+/* nav */
+header .menu {
+    display: none;
+    grid-area: 'nav';
+    color: white;
+    font-size: 30px;
+    z-index: 2;
+}
+
+header .navlist {
+    padding: 0;
+    grid-area: 'nav';
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-around;
+    z-index: 1;
+}
+
+header .navlist li a {
+    font-weight: bolder;
+    font-size: larger;
+    margin: 0 10px;
+    padding: 2px 5px;
+    display: inline-block;
+    border-radius: 10px;
+    color: white;
+    z-index: 1;
+}
+
+header .navlist li a:hover {
+    transform: translateY(5px);
+    background-color: coral;
+    color: black;
+    transition: 0.5s;
+    border: solid #ffa62e 1px;
+}
+
+.opsi {
+    display: none;
+    margin-bottom: 13px;
+}
+
+.opsi .dots {
+    border: solid #d2d3db 2px;
+    color: #d2d3db;
+    background-color: #18171c;
+    font-size: 30px;
+    border-radius: 100%;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.opsi .opsion {
+    display: none;
+}
+
+.opsi .opsion a {
+    color: #d2d3db;
+    font-size: 30px;
+}
+
+.opsi .opsion .product {
+    grid-area: 'product';
+}
+
+.opsi .opsion .add-product {
+    grid-area: 'add-product';
+}
+
+.opsi .opsion .log-out {
+    grid-area: 'log-out';
+}
+
+.opsi .slide-up {
+    background-color: coral;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+        'product'
+        'add-product'
+        'log-out';
+    width: 100%;
+    z-index: 3;
+    position: absolute;
+    place-items: center;
+    border-radius: 20px;
+    border: solid #9394a5 1px;
+    bottom: 0;
+}
+
+@media screen and (max-width: 1440px) {
+    header form {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1113px) {
+    header form {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 886px) {
+    header {
+        grid-template-columns: 1fr 0.5fr;
+    }
+
+    header form {
+        width: 95%;
+    }
+
+    header .navlist li a {
+        font-size: 15px;
+        margin: 0 2px;
+    }
+
+    header .navlist {
+        place-items: center;
+        width: 100%;
+        gap: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        width: 100%;
+        grid-template-columns: 1fr 0.5fr;
+        grid-template-areas:   'logo';
+    }
+
+    header form {
+        width: 90%;
+    }
+
+    header .navlist {
+        width: 45%;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            'menu'
+            'product'
+            'add-product'
+            'log-out';
+        position: absolute;
+        left: 0;
+        top: -20%;
+        border-right: whitesmoke solid 2px;
+        background-color: rgba(240, 151, 88, 0.959);
+        z-index: 1;
+        justify-content: space-around;
+        list-style: disc;
+        color: white;
+        transform: translateX(-100%);
+    }
+
+    header .slide {
+        transform: translateX(0);
+    }
+
+    header .navlist li:nth-child(1) {
+        grid-area: 'product';
+    }
+
+    header .navlist li:nth-child(2) {
+        grid-area: 'add-product';
+    }
+
+    header .navlist li:nth-child(3) {
+        grid-area: 'log-out';
+    }
+
+    header .menu {
+        margin-left: 2%;
+        grid-area: 'nav';
+        display: block;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        width: 100%;
+    }
+
+    header .navlist {
+        height: 100vh;
+    }
+}

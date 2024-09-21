@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="../css/footer.css">
+</head>
+
+<body>
+
+    <header>
+        <i class='bx bx-menu menu' id="menu-bar"></i>
+        <div>
+            <a href="http://localhost:3000/home/">
+                <img src="../assets/logo1.png" class="logo" alt="">
+            </a>
+        </div>
+        <ul class="navlist">
+            <li><a href="http://localhost:3000/all/">Products</a></li>
+            <li><a href="http://localhost:3000/pakaian/">Add Product</a></li>
+            <li><a onclick="logout()">Log out</a></li>
+
+        </ul>
+    </header>
+
+    <section class="berita">
+        <div class="row">
+            <div class="col content-col">
+                <h1>BABy cLOtHES</h1>
+                <p>Toko pakaian bayi yang menyedian pakaian pakaian fashionable dengan jumlah terbatas, satu pakaian memiliki satu ukuran dan satu warna. LIMITED EDISON !</p>
+            </div>
+            <div class="col image-col">
+                <div class="news-gallery">
+                    <img src="../assets/Premium Vector _ Watercolor baby clothes for a boy hand drawn illustration for baby shower.jpeg" alt="">
+                    <img src="../assets/Watercolor Floral Boho Baby Dress Digital Art Print _ Instant - Etsy.jpeg" alt="">
+                    <img src="../assets/download (16).jpeg" alt="">
+                    <img src="../assets/Premium Vector _ Watercolor illustration for gender reveal party it's a girl it's a boy template.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="bottom">
+        <div class="sosmed">
+            <a href="https://github.com/login" target="_blank"><i class='bx bxl-github'></i></a>
+            <a href="https://web.whatsapp.com/" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+            <a href="https://www.instagram.com/raacaac/ " target="_blank"><i class='bx bxl-instagram'></i></a>
+            <a href="https://twitter.com/i/flow/login" " target="_blank"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-gmail'></i></a>
+        </div>
+        <div class="copyright">
+            <h1>| &copy; 2023 copyright : Raja Salsabilla Annatasya |</h1>
+        </div>
+    </footer>
+
+    <script>
+        const menu = document.getElementById('menu-bar');
+        const nav = document.querySelector(".navlist");
+        menu.addEventListener("click", () => {
+            nav.classList.toggle('slide');
+            menu.classList.toggle('bx-x');
+        });
+        function logout() {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            window.location.href = "/login";
+        };
+    </script>
+</body>
+
+</html>

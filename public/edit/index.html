@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDIT PRODUCT</title>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+
+<body>
+    <!-- <div class="container">
+        <div class="nav-admin">
+            <h1 class="admin"><a href="http://localhost:3000/halaman-admin/" class="nav-link">ADMIN</a></h1>
+            <hr>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="http://localhost:3000/all/" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="http://localhost:3000/pakaian/" class="nav-link active">Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Log Out</a>
+                </li>
+            </ul>
+            <hr>
+        </div>
+        <div class="form">
+            <form name="edit" id="edit-form">
+                <h1>EDIT PAKAIAN</h1>
+                <input type="text" name="nama_pakaian" placeholder="Nama" />
+                <input type="text" name="harga" placeholder="Harga" />
+                <input type="number" min="0" value="1" name="stok" placeholder="Stok" />
+                <input type="text" name="deskripsi_usia" placeholder="Deskripsi" />
+                <input type="file" name="foto" placeholder="Foto" />
+                <div class="btn">
+                    <button type="submit">Simpan</button>
+                    <button type="reset">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+    <header>
+        <i class='bx bx-menu menu' id="menu-bar"></i>
+        <div>
+            <a href="http://localhost:3000/home/">
+                <img src="../assets/logo1.png" class="logo" alt="">
+            </a>
+        </div>
+        <ul class="navlist">
+            <li><a href="http://localhost:3000/all/" class="active-bar">Products</a></li>
+            <li><a href="http://localhost:3000/pakaian/">Add Product</a></li>
+            <li><a onclick="logout()">Log out</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <form name="edit" id="edit-form">
+            <h1>EDIT PAKAIAN</h1>
+            <input type="text" name="nama_pakaian" placeholder="Nama" />
+            <input type="text" name="harga" placeholder="Harga" />
+            <input type="text" min="0" value="1" name="stok" placeholder="Stok" />
+            <input type="text" name="deskripsi_usia" placeholder="Deskripsi" />
+            <input type="file" name="foto" placeholder="Foto" />
+            <div class="btn">
+                <button class="save" type="submit">Simpan</button>
+                <button type="button" onclick="cancel()">CANCEL</button>
+            </div>
+        </form>
+    </div>
+    
+
+    <script>
+        function logout() {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            window.location.href = "/login";
+        }
+
+        function cancel() {
+            location.href = "/all";
+        }
+
+        const menu = document.getElementById('menu-bar');
+        const nav = document.querySelector(".navlist");
+        menu.addEventListener("click", () => {
+            nav.classList.toggle('slide');
+            menu.classList.toggle('bx-x');
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const searchParams = new URLSearchParams(location.search);
+            const response = await fetch(`/api/edit/${searchParams.get("kode_pakaian")}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            const data = await response.json();
+            document.edit.nama_pakaian.value = data.nama_pakaian;
+            document.edit.harga.value = data.harga;
+            document.edit.stok.value = data.stok; 
+            document.edit.deskripsi_usia.value = data.deskripsi_usia; 
+        });
+
+        const form = document.getElementById('edit-form');
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const searchParams = new URLSearchParams(location.search);
+            const data = new FormData(form);
+
+            await fetch(`/api/edit/${searchParams.get("kode_pakaian")}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: data,
+            });
+
+            alert("Data Berhasil Di edit.");
+            location.href = "/all";
+        });
+        
+    </script>
+</body>
+
+</html>

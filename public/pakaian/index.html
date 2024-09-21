@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD PRODUCT</title>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+
+<body>
+    <!-- <div class="container">
+        <div class="nav-admin">
+            <h1 class="admin"><a href="http://localhost:3000/halaman-admin/" class="nav-link">ADMIN</a></h1>
+            <hr>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="http://localhost:3000/all/" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="http://localhost:3000/pakaian/" class="nav-link active">Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Log Out</a>
+                </li>
+            </ul>
+            <hr>
+        </div>
+        <div class="form">
+            <form name="pakaian">
+                <h1>TAMBAH PAKAIAN</h1>
+                <input type="text" name="nama_pakaian" placeholder="Nama" />
+                <input type="text" name="harga" placeholder="Harga" />
+                <input type="text" min="0" value="1" name="stok" placeholder="Stok" />
+                <input type="text" name="deskripsi_usia" placeholder="Deskripsi" />
+                <input type="file" name="foto" placeholder="Foto" />
+                <div class="btn">
+                    <button type="submit">Simpan</button>
+                    <button type="reset">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+    <header>
+        <i class='bx bx-menu menu' id="menu-bar"></i>
+        <div>
+            <a href="http://localhost:3000/home/">
+                <img src="../assets/logo1.png" class="logo" alt="">
+            </a>
+        </div>
+        <ul class="navlist">
+            <li><a href="http://localhost:3000/all/">Products</a></li>
+            <li><a href="http://localhost:3000/pakaian/" class="active-bar">Add Product</a></li>
+            <li><a onclick="logout()">Log out</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <form name="pakaian">
+            <h1>TAMBAH PAKAIAN</h1>
+            <input type="text" name="nama_pakaian" placeholder="Nama" />
+            <input type="text" name="harga" placeholder="Harga" />
+            <input type="text" min="0" value="1" name="stok" placeholder="Stok" />
+            <input type="text" name="deskripsi_usia" placeholder="Deskripsi" />
+            <input type="file" name="foto" placeholder="Foto" />
+            <div class="btn">
+                <button class="save" type="submit">Simpan</button>
+                <button type="reset">Reset</button>
+                <button type="button" onclick="cancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function logout() {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            window.location.href = "/login";
+        }
+        function cancel() {
+            location.href = "/all";
+        }
+        document.querySelector("button").onclick = async (e) => {
+            e.preventDefault();
+            
+            const nama = document.pakaian.nama_pakaian.value; // .pakaian = dari form nya .nama_pakaian dari yang di atasnya
+            const harga = document.pakaian.harga.value;
+            const stok = document.pakaian.stok.value;
+            const deskripsi = document.pakaian.deskripsi_usia.value;
+            const foto = document.pakaian.foto.files[0];
+
+            const formData = new FormData();
+            formData.append("nama_pakaian", nama); // "nama_pakaian" dari databasenya
+            formData.append("harga", harga);
+            formData.append("stok", stok);
+            formData.append("deskripsi_usia", deskripsi);
+            formData.append("foto", foto);
+
+            await fetch("/api/pakaian", {
+                method: "POST",
+                body: formData,
+            });
+            alert("Berhasil Ditambahkan");
+            location.href = "/all";
+        };
+        const menu = document.getElementById('menu-bar');
+        const nav = document.querySelector(".navlist");
+        menu.addEventListener("click", () => {
+            nav.classList.toggle('slide');
+            menu.classList.toggle('bx-x');
+        });
+    </script>
+</body>
+
+</html>
